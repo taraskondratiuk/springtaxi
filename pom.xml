@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>ua.gladiator</groupId>
-    <artifactId>demo</artifactId>
+    <artifactId>taxi</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>taxi</name>
