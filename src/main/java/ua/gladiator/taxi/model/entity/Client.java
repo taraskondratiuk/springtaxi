@@ -1,6 +1,7 @@
-package ua.gladiator.taxi.model.entities;
+package ua.gladiator.taxi.model.entity;
 
 import lombok.Data;
+import ua.gladiator.taxi.model.entity.enums.SocialStatus;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

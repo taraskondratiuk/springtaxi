@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@EntityScan(basePackages = "ua.gladiator.taxi.model.entities")
+@EntityScan(basePackages = "ua.gladiator.taxi.model.entity")
 @EnableJpaRepositories(basePackages = {"ua.gladiator.taxi.model.repository"})
 public class TaxiApplication {
 
