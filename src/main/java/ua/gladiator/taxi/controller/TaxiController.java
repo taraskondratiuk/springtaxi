@@ -1,20 +1,13 @@
 package ua.gladiator.taxi.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ua.gladiator.taxi.model.entity.Client;
-import ua.gladiator.taxi.model.entity.enums.SocialStatus;
-import ua.gladiator.taxi.model.repository.ClientRepository;
-import ua.gladiator.taxi.model.service.ClientService;
-import ua.gladiator.taxi.model.service.impl.ClientServiceImpl;
-
-import java.math.BigDecimal;
+import ua.gladiator.taxi.model.service.impl.ClientService;
 
 @Controller
-@ComponentScan
+
 @RequestMapping(path = "/")
 public class TaxiController {
 
@@ -26,14 +19,22 @@ public class TaxiController {
     }
 
     @RequestMapping(value = { "/", "/index" }, method = RequestMethod.GET)
-    public String index(Model model) {
-
-
-        for (int i = 0; i < 100; i++) {
-
-            System.out.println(clientService.isRegistered("user","password"));
-        }
+    public String index() {
         return "index";
+    }
+
+    @RequestMapping("/login")
+    public String getLogin(@RequestParam(value = "error", required = false) String error,
+                           @RequestParam(value = "logout", required = false) String logout,
+                           Model model) {
+        model.addAttribute("error", error != null);
+        model.addAttribute("logout", logout != null);
+        return "login";
+    }
+
+    @GetMapping(path = "/hello")
+    public String hello() {
+        return "hello";
     }
 
 

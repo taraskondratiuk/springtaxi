@@ -5,6 +5,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
-<h1> <a href="${pageContext.request.contextPath}/demo/personList">Person List</a>   </h1>
+<h1> <a href="${pageContext.request.contextPath}/login">login</a>   </h1>
 </body>
 </html>

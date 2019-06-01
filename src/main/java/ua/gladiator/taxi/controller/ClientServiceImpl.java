@@ -1,11 +1,10 @@
-package ua.gladiator.taxi.model.service.impl;
+package ua.gladiator.taxi.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import ua.gladiator.taxi.model.entity.Client;
 import ua.gladiator.taxi.model.repository.ClientRepository;
-import ua.gladiator.taxi.model.service.ClientService;
+import ua.gladiator.taxi.model.service.impl.ClientService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +23,8 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public boolean isRegistered(String name, String password) {
-        if(clientRepository == null)
-            System.out.println("+++++++++++++");
-        return clientRepository.numRegistered(name, password) != null;
+    public boolean isRegistered(String login, String password) {
+
+        return clientRepository.numRegistered(login, password) != 0;
     }
 }
