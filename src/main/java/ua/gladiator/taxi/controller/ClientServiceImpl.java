@@ -23,8 +23,18 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public boolean isRegistered(String login, String password) {
-
-        return clientRepository.numRegistered(login, password) != 0;
+    public boolean isRegistered(String login) {
+        return clientRepository.findByLogin(login) != null;
     }
+
+    @Override
+    public void registerClient(Client client) {
+        client.setUserType("USER");
+        clientRepository.save(client);
+    }
+//    @Override
+//    public boolean isRegistered(String login) {
+//
+//        return clientRepository.numRegistered(login) != 0;
+//    }
 }

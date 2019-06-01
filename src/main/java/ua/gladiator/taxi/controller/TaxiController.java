@@ -3,8 +3,16 @@ package ua.gladiator.taxi.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import ua.gladiator.taxi.model.entity.Car;
+import ua.gladiator.taxi.model.entity.Client;
+import ua.gladiator.taxi.model.service.impl.CarService;
 import ua.gladiator.taxi.model.service.impl.ClientService;
+
+import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 
@@ -12,16 +20,28 @@ import ua.gladiator.taxi.model.service.impl.ClientService;
 public class TaxiController {
 
     private final ClientService clientService;
+    private final CarService carService;
 
     @Autowired
-    public TaxiController(ClientService clientService) {
+    public TaxiController(ClientService clientService, CarService carService) {
         this.clientService = clientService;
+        this.carService = carService;
     }
 
-    @RequestMapping(value = { "/", "/index" }, method = RequestMethod.GET)
+    @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
     public String index() {
+        List<Car> list = carService.getAll();
+        Car c = list.get(0);
+        System.out.println("___________________________________");
+        System.out.println(c.getType());
+        System.out.println(c.getIdcars());
+        System.out.println(c.getIs_aviliable());
+        System.out.println(c.getMake());
+        System.out.println(c.getPlace());
+
         return "index";
     }
+
 
     @RequestMapping("/login")
     public String getLogin(@RequestParam(value = "error", required = false) String error,
@@ -30,6 +50,42 @@ public class TaxiController {
         model.addAttribute("error", error != null);
         model.addAttribute("logout", logout != null);
         return "login";
+    }
+
+    /*@RequestMapping("/register")
+    public String getReg(@RequestParam(value = "error", required = false) String error,
+                           Model model,
+                         Client client) {
+        model.addAttribute("error", error != null);
+        model.addAttribute("client", client);
+        return "register";
+    }*/
+
+
+    @GetMapping("/register")
+    public String regGet(Model model) {
+        model.addAttribute("client", new Client());
+        return "register";
+    }
+
+    @PostMapping("/register")
+    public String regPost(@Valid Client client, BindingResult bindingResult, Model model) {
+        //if (!bindingResult.hasErrors()) {
+
+
+        if (!bindingResult.hasErrors()) {
+            if (clientService.isRegistered(client.getLogin())) {
+                model.addAttribute("login_error", true);
+                return "register";
+            }
+            model.addAttribute("noErrors", true);
+
+        }
+
+        //}
+        model.addAttribute("client", client);
+        clientService.registerClient(client);
+        return "register";
     }
 
     @GetMapping(path = "/hello")

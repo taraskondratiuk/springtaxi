@@ -7,5 +7,7 @@ import java.util.List;
 @Service
 public interface ClientService {
     List<Client> getAll();
-    boolean isRegistered(String login, String password);
+    boolean isRegistered(String login);
+    void registerClient(Client client);
+
 }

@@ -1,8 +1,10 @@
+/*
 package ua.gladiator.taxi.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -13,6 +15,8 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import ua.gladiator.taxi.model.entity.Client;
 import ua.gladiator.taxi.model.service.impl.ClientService;
 
@@ -27,25 +31,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         this.clientService = clientService;
     }
 
-    @Override
+@Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/index").permitAll()
+                .antMatchers(HttpMethod.POST,"/", "/index", "/register", "/register/*").permitAll()
+                .antMatchers(HttpMethod.GET,"/", "/index", "/register", "/register/*").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin()
-                .loginPage("/login")
-                .permitAll()
+                .formLogin().loginPage("/login").permitAll()
                 .and()
-                .logout()
-                .permitAll();
+                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).permitAll();
     }
+
 
     @Bean
     @Override
     public UserDetailsService userDetailsService() {
-/*        UserDetails user =
+        UserDetails user =
                 User.withDefaultPasswordEncoder()
                         .username("user")
                         .password("password")
@@ -57,7 +60,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         .username("user1")
                         .password("password1")
                         .roles("USER")
-                        .build();*/
+                        .build();
+
         List<UserDetails> list = new ArrayList<>();
         List<Client> clients = clientService.getAll();
 
@@ -68,10 +72,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         .username(v.getLogin())
                         .password(v.getPassword())
                         .roles(v.getUserType())
+
                         .build())
         );
-
 
         return new InMemoryUserDetailsManager(list);
     }
 }
+*/
