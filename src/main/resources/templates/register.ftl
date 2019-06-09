@@ -1,42 +1,23 @@
-<#import "/spring.ftl" as spring />
+<#import "parts/common.ftl" as c>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Form Data Binding and Validation</title>
-    <link href="/css/main.css" rel="stylesheet">
-</head>
-<body>
-<h2>Form Data Binding and Validation</h2>
 
-<@spring.bind "client"/>
-<#if login_error??>
-    this login is already taken
-</#if>
-<#if client?? && noErrors??>
-    Your submitted data<br>
-    First name: ${client.login}<br>
-    Last name: ${client.password}<br>
-    Email: ${client.socialStatus}<br>
-<#else>
+<@c.page>
+    Add new user
+    <#if message??>
+        ${message}
+    </#if>
+
     <form action="/register" method="post">
-        login<br>
-        <@spring.formInput "client.login"/>
-        <@spring.showErrors "<br>"/>
-        <br><br>
-        pw<br>
-        <@spring.formInput "client.password"/>
-        <@spring.showErrors "<br>"/>
-        <br><br>
-        socialStatus<br>
-        <@spring.formInput "client.socialStatus"/>
-        <@spring.showErrors "<br>"/>
-        <br><br>
-        <button type="submit" value="Submit">
+        <div><label> User Name : <input type="text" name="login"/> </label></div>
+        <div><label> Password : <input type="password" name="password"/> </label></div>
+        <div><label> Social Status : <select name="socialStatus">
+                <#list statuses as s >
+                    <option>
+                        ${s}
+                    </option>
+                </#list>
+                </select></label></div>
+        <input type="hidden" name="_csrf" value="${_csrf.token}" />
+        <div><input type="submit" value="Sign In"/></div>
     </form>
-</#if>
-
-
-</body>
-</html>
+</@c.page>

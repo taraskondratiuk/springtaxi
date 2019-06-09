@@ -1,4 +1,4 @@
-package ua.gladiator.taxi.model.service.impl;
+package ua.gladiator.taxi.model.service;
 
 import ua.gladiator.taxi.model.entity.Car;
 import java.util.List;

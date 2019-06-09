@@ -1,10 +1,12 @@
-package ua.gladiator.taxi.controller;
+package ua.gladiator.taxi.model.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import ua.gladiator.taxi.model.entity.Client;
+import ua.gladiator.taxi.model.entity.enums.Role;
 import ua.gladiator.taxi.model.repository.ClientRepository;
-import ua.gladiator.taxi.model.service.impl.ClientService;
+import ua.gladiator.taxi.model.service.ClientService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,13 +25,24 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
+    public UserDetails loadUserByUsername(String s) {
+
+        UserDetails user= clientRepository.findByLogin(s);
+        //System.out.println(user.getPassword());
+        //System.out.println(user.getUsername());
+        return user;
+    }
+
+    @Override
     public boolean isRegistered(String login) {
         return clientRepository.findByLogin(login) != null;
     }
 
     @Override
     public void registerClient(Client client) {
-        client.setUserType("USER");
+        client.setRole(Role.ROLE_USER);
+        client.setTotalSpentValue(0L);
+        client.setPersonalDiscount(0);
         clientRepository.save(client);
     }
 //    @Override

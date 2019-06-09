@@ -1,10 +1,9 @@
-package ua.gladiator.taxi.controller;
+package ua.gladiator.taxi.model.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.gladiator.taxi.model.entity.Car;
 import ua.gladiator.taxi.model.repository.CarRepository;
-import ua.gladiator.taxi.model.service.impl.CarService;
+import ua.gladiator.taxi.model.service.CarService;
 
 import java.util.ArrayList;
 import java.util.List;
