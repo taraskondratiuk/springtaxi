@@ -13,16 +13,18 @@ import org.springframework.web.bind.annotation.*;
 
 import ua.gladiator.taxi.model.entity.Car;
 import ua.gladiator.taxi.model.entity.Client;
+import ua.gladiator.taxi.model.entity.Ride;
+import ua.gladiator.taxi.model.entity.RideDetails;
 import ua.gladiator.taxi.model.entity.enums.CarType;
 import ua.gladiator.taxi.model.entity.enums.Role;
 import ua.gladiator.taxi.model.entity.enums.SocialStatus;
+import ua.gladiator.taxi.model.service.CarService;
 import ua.gladiator.taxi.model.service.ClientService;
+import ua.gladiator.taxi.model.service.TimeService;
+import ua.gladiator.taxi.model.service.UtilityService;
 
 import javax.validation.Valid;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping(path = "/")
@@ -36,13 +38,13 @@ public class AccountController {
 
 
     @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
-    public java.lang.String index() {
+    public String index() {
         /*Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user =(User) authentication.getPrincipal();
         System.out.println(user.getPassword());
         System.out.println(user.getAuthorities());
         System.out.println(user.getUsername());*/
-        System.out.println("+++++++++++++");
+        //System.out.println("+++++++++++++");
         //List<Car> list = carService.getAvailable(CarType.valueOf("BUS"));
         //System.out.println("----------------------------");
         //list.forEach(v -> System.out.println(v.getType()));/**/
@@ -59,11 +61,12 @@ public class AccountController {
 
 
     @RequestMapping("/login")
-    public java.lang.String getLogin(@RequestParam(value = "error", required = false) java.lang.String error,
-                                     @RequestParam(value = "logout", required = false) java.lang.String logout,
+    public String getLogin(@RequestParam(value = "error", required = false) String error,
+                                     @RequestParam(value = "logout", required = false) String logout,
                                      Model model) {
         model.addAttribute("error", error != null);
         model.addAttribute("logout", logout != null);
+
         return "login";
     }
 
@@ -126,6 +129,7 @@ public class AccountController {
 
         clientService.registerClient(client);
 
-        return "redirect:/login";
+        model.put("success_reg", "success_reg");
+        return "index";
     }
 }

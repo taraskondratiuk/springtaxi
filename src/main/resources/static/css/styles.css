@@ -1,3 +1,10 @@
+p,h2,h1,li,ul,a{
+    font-family: Arial, serif;
+    text-decoration: none;
+    color:#000000;
+    font-size: 14px;
+}
+
 .logo-img {
     width: auto;
     height: 79px;
@@ -7,6 +14,42 @@
     background-color: #E3CD29;
 }
 .lang-images input {
-    height: 25px;
+    height: 20px;
     width: auto;
+}
+.footer{
+    background-color: #E3CD29;
+    margin-top: 30px;
+}
+.footer li{
+    font-size: 14px;
+    color:#6d4c37;
+}
+.footer b{
+    font-weight: 900;
+}
+.footer ul{
+    padding:20px 0px 20px 0px;
+}
+ul,li{
+    list-style: none;
+}
+
+.page-wrapper {
+    height: 502px;
+}
+.head_info {
+    text-align: center;
+
+}
+.head_info h1 {
+    font-size: 35px;
+}
+
+.logout-button {
+    width: 76px;
+    margin-top: 12px;
+}
+.langs {
+    text-align: right;
 }

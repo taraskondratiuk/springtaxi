@@ -26,12 +26,48 @@
 </html>-->
 <#import "parts/common.ftl" as c>
 <@c.page>
-    login page
+    <h3>login page</h3>
 
-    <form action="/login" method="post">
+    <#if logout>
+        logout
+    </#if>
+    <#if error>
+        error
+    </#if>
+
+    <div ng-app="ngpatternApp" ng-controller="ngpatternCtrl">
+
+
+
+        <form action="/login" method="post" name="loginForm" novalidate >
+
+            <label> User Name : <input type="text" name="username" ng-model="txtlogin" ng-pattern="/^[A-Za-z0-9]{4,15}$/" required /></label>
+
+           <span style="color:Red" ng-show="loginForm.username.$touched&&loginForm.username.$error.required"> Required! </span>
+
+            <span style="color:Red" ng-show="loginForm.username.$touched&&loginForm.username.$error.pattern">Wrong login</span>
+
+            <br /><br />
+            <label> Password : <input type="password" name="password" ng-model="txtpw" ng-pattern="/^[A-Za-z0-9]{6,15}$/" required /></label>
+
+            <span style="color:Red" ng-show="loginForm.password.$touched&&loginForm.password.$error.required"> Required! </span>
+
+            <span style="color:Red" ng-show="loginForm.password.$touched&&loginForm.password.$error.pattern">Wrong pw</span>
+
+            <br /><br />
+            <input type="hidden" name="_csrf" value="${_csrf.token}" />
+            <button ng-disabled="loginForm.username.$invalid || loginForm.password.$invalid" type="submit">Submit Form</button><br /><br />
+
+
+
+        </form>
+
+    </div>
+
+ <#--   <form action="/login" method="post">
         <div><label> User Name : <input type="text" name="username"/> </label></div>
         <div><label> Password: <input type="password" name="password"/> </label></div>
         <input type="hidden" name="_csrf" value="${_csrf.token}" />
         <div><input type="submit" value="Sign In"/></div>
-    </form>
+    </form>-->
 </@c.page>

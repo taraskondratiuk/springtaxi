@@ -1,6 +1,7 @@
 package ua.gladiator.taxi.model.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import ua.gladiator.taxi.model.entity.Client;
@@ -13,9 +14,19 @@ import java.util.List;
 
 @Service
 public class ClientServiceImpl implements ClientService {
+    private final ClientRepository clientRepository;
 
-    @Autowired
-    private ClientRepository clientRepository;
+    public ClientServiceImpl(ClientRepository clientRepository) {
+        this.clientRepository = clientRepository;
+    }
+
+    @Override
+    public Client getCurrentClient() {
+        return (Client) SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getPrincipal();
+    }
 
     @Override
     public List<Client> getAll() {
@@ -27,9 +38,8 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public UserDetails loadUserByUsername(String s) {
 
-        UserDetails user= clientRepository.findByLogin(s);
-        //System.out.println(user.getPassword());
-        //System.out.println(user.getUsername());
+        UserDetails user = clientRepository.findByLogin(s);
+
         return user;
     }
 
@@ -45,9 +55,11 @@ public class ClientServiceImpl implements ClientService {
         client.setPersonalDiscount(0);
         clientRepository.save(client);
     }
-//    @Override
-//    public boolean isRegistered(String login) {
-//
-//        return clientRepository.numRegistered(login) != 0;
-//    }
+
+    @Override
+    public void addToSpentValue(Long value) {
+        Client client = getCurrentClient();
+        client.setTotalSpentValue(client.getTotalSpentValue() + value);
+    }
+
 }

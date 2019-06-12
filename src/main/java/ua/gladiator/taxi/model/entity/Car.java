@@ -2,6 +2,7 @@ package ua.gladiator.taxi.model.entity;
 
 import lombok.Data;
 import ua.gladiator.taxi.model.entity.enums.CarType;
+import ua.gladiator.taxi.model.entity.enums.Street;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -20,7 +21,8 @@ public class Car {
     private String make;
 
     @NotEmpty
-    private String place;
+    @Enumerated(EnumType.STRING)
+    private Street place;
 
     @NotEmpty
     private Boolean is_aviliable;
@@ -28,4 +30,9 @@ public class Car {
     @NotEmpty
     @Enumerated(EnumType.STRING)
     private CarType type;
+
+    @Override
+    public String toString() {
+        return "" + idcars;
+    }
 }

@@ -18,4 +18,6 @@ public interface ClientService extends UserDetailsService {
     boolean isRegistered(String login);
     void registerClient(Client client);
 
+    void addToSpentValue(Long value);
+    Client getCurrentClient();
 }

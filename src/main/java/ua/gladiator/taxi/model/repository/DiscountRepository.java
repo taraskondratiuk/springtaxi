@@ -10,7 +10,7 @@ import ua.gladiator.taxi.model.entity.enums.SocialStatus;
 @Repository
 public interface DiscountRepository extends CrudRepository<Discount, Integer> {
 
-    @Query(value = "SELECT (SELECT discount FROM discounts WHERE social_status is NULL AND min_spent_value < :min_spent ORDER BY discount DESC LIMIT 1) + (SELECT discount FROM discounts WHERE social_status = :soc_status)",
+    @Query(value = "SELECT (SELECT discount FROM discounts WHERE social_status is NULL AND min_spent_value <= :min_spent ORDER BY discount DESC LIMIT 1) + (SELECT discount FROM discounts WHERE social_status = :soc_status)",
     nativeQuery = true)
     Integer getPersonalDiscount(@Param("min_spent") Long min_spent, @Param("soc_status") String socialStatus);
 

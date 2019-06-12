@@ -6,27 +6,63 @@
         <meta charset="UTF-8">
         <title>Taxi app</title>
         <link rel="stylesheet" type="text/css"
-        href="<@spring.url '/css/bootstrap.css'/>"/>
+              href="<@spring.url '/css/bootstrap.css'/>"/>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css"
               href="<@spring.url '/css/styles.css'/>"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+        <script type="text/javascript">
+
+            var app = angular.module('ngpatternApp', []);
+
+            app.controller('ngpatternCtrl', function () {
+
+            });
+
+        </script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+        </script>
+        <script type="application/javascript">
+            function switchUA() {
+                window.location.replace(window.location.origin + window.location.pathname + '?lang=UA');
+            }
+
+            function switchUS() {
+                window.location.replace(window.location.origin + window.location.pathname + '?lang=US');
+            }
+        </script>
+        <script>
+            var app = angular.module('selectboxApp', []);
+            app.controller('selectboxCtrl', function ($scope) {
+
+                $scope.checkselection = function () {
+                    setTimeout(function () {
+
+                    $scope.msg = '';
+                    if ($scope.placeStart == "" || $scope.placeStart == undefined ||
+                        $scope.placeEnd == "" || $scope.placeEnd == undefined ||
+                    $scope.typeCar == "" || $scope.typeCar == undefined)
+
+                        $scope.msg = 'Please Select All Dropdown Values';
+                    if ($scope.placeStart == $scope.placeEnd)
+                        $scope.msg = 'Please choose different init and dest places';
+                    if($scope.msg == '')
+
+                        angular.element('#mysubmit').trigger('click');
+                    }, 0);
+                }
+            });
+        </script>
     </head>
     <body>
-    <#include "header.ftl">
-    <div class="body-wrapper container col-xl-12 col-md-12 col-lg-12">
-        <#nested>
-    </div>
+    <#include "header.ftl"/>
+    <section class="page-wrapper container">
+        <#nested/>
+    </section>
+    <#include "footer.ftl"/>
     </body>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
-    </script>
 
-    <script type="application/javascript">
-    function switchUA() {
-        window.location.replace(window.location.origin + window.location.pathname + '?lang=UA');
-    }
-    function switchUS() {
-        window.location.replace(window.location.origin + window.location.pathname + '?lang=US');
-    }
-</script>
+
+
     </html>
 </#macro>
