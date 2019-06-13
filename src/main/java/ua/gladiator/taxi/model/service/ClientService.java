@@ -20,4 +20,10 @@ public interface ClientService extends UserDetailsService {
 
     void addToSpentValue(Long value);
     Client getCurrentClient();
+    boolean isRegistered(Long id);
+    boolean isRegistered(Client client);
+
+    void changePassword(String oldPassword, String newPassword, Long id);
+
+    void refreshDiscount(Integer newDiscount);
 }

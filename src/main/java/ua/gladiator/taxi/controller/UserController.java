@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import ua.gladiator.taxi.model.entity.Client;
 import ua.gladiator.taxi.model.entity.Ride;
 import ua.gladiator.taxi.model.entity.enums.CarType;
 import ua.gladiator.taxi.model.entity.enums.Street;
@@ -39,24 +40,28 @@ public class UserController {
     @GetMapping(path = "/home")
     public String showHome(Model model,
                            @RequestParam (value = "cancel", required = false) String cancel) {
-        model.addAttribute("cancel", cancel != null);
+        Client client = clientService.getCurrentClient();
 
+        model.addAttribute("cancel", cancel != null);
+        model.addAttribute("client", client);
+        model.addAttribute("specialdiscount", discountService.getSpecialDiscount());
+        model.addAttribute("numRides", rideService.getNumRides(client.getId()));
         return "userHome";
     }
 
     @GetMapping(path = "/order")
-    public ModelAndView showOrderPage(Map<String, Object> model) {
+    public String showOrderPage(Map<String, Object> model) {
 
         /*Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Client user =(Client) authentication.getPrincipal();
         System.out.println(user.getPassword());
         System.out.println(user.getAuthorities());
         System.out.println(user.getUsername());*/
-        return new ModelAndView("order", model);
+        return "order";
     }
 
     @PostMapping(path = "/order")
-    public ModelAndView createRide(Map<String, Object> model,
+    public String createRide(Map<String, Object> model,
                                    @RequestParam CarType carType,
                                    @RequestParam Street initPlace,
                                    @RequestParam Street destPlace,
@@ -74,7 +79,7 @@ public class UserController {
                     timeService.findLongTime(initPlace, destPlace)));
             model.put("car", carService.getCarById(carId));
         }
-        return  new ModelAndView("order", model);
+        return "order";
     }
 
     @ModelAttribute
@@ -99,8 +104,14 @@ public class UserController {
                 .waitTime(waitTime)
                 .build());
         clientService.addToSpentValue(price);
+        clientService.refreshDiscount(discountService.getClientDiscount(clientService.getCurrentClient()));
+
+
         model.put("success", "success");
-        return "userHome";
+        List <Ride> rides = rideService.getRidesByClientId(clientService.getCurrentClient().getId());
+        model.put("details", utilityService.buildListDetails(rides));
+
+        return "orderHistory";
     }
 
     @GetMapping(path = "/history")
@@ -109,5 +120,25 @@ public class UserController {
         model.put("details", utilityService.buildListDetails(rides));
 
         return "orderHistory";
+    }
+
+    @GetMapping(path = "/changepw")
+    public String getChangepwPage() {
+        return "changePassword";
+    }
+
+    @PostMapping(path = "/changepw")
+    public String changePw(Map<String, Object> model,
+                           @RequestParam String oldpassword,
+                           @RequestParam String newpassword) {
+        Client client = clientService.getCurrentClient();
+        if (!client.getPassword().equals(oldpassword)) {
+            model.put("error", "error");
+            return "changePassword";
+        }
+        clientService.changePassword(oldpassword, newpassword, client.getId());
+        model.put("pwchanged", "pwchanged");
+        return "changePassword";
+
     }
 }

@@ -1,7 +1,9 @@
 <#import "parts/common.ftl" as c>
 
 <@c.page>
-
+<#if success??>
+    success
+</#if>
 
     <div>
         <p>${rca.getMessage("message.history")}</p>

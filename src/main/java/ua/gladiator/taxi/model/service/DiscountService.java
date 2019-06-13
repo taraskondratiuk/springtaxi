@@ -6,4 +6,6 @@ import org.springframework.stereotype.Service;
 @Service
 public interface DiscountService {
     Integer getClientDiscount(Client client);
+
+    Integer getSpecialDiscount();
 }

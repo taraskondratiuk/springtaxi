@@ -3,7 +3,7 @@
     <header class="header container">
         <div class="headline row ">
             <div class="logo col-lg-2">
-                <img class="logo-img" src="<@spring.url '/sources/taxi-logo.png'/>" alt="logo">
+                 <img class="logo-img" src="<@spring.url '/sources/taxi-logo.png'/>" alt="logo">
             </div>
             <div class="head_info col-lg-8">
                 <h1>${rca.getMessage("message.taxi")}</h1>

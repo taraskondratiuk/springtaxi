@@ -34,4 +34,9 @@ public class RideServiceImpl implements RideService {
     public List<Ride> getRidesByClientId(Long id) {
         return rideRepository.findAllByClientId(id);
     }
+
+    @Override
+    public Integer getNumRides(Long id) {
+        return rideRepository.findAllByClientId(id).size();
+    }
 }

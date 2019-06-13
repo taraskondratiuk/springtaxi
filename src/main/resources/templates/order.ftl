@@ -1,6 +1,9 @@
 <#import "parts/common.ftl" as c>
 
 <@c.page>
+<#if success??>
+    success
+</#if>
     <#if !cars??>
     <div><h3>${rca.getMessage("message.discount")} : ${discount}%</h3></div>
         <div  ng-app="selectboxApp" ng-controller="selectboxCtrl">
@@ -29,7 +32,7 @@
                         <option value="">type</option>
                         <#list types as t >
                             <option value="${t}" >
-                                type
+                                ${t}
                             </option>
                         </#list>
                     </select></label></div>

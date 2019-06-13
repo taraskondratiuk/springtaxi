@@ -59,7 +59,27 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public void addToSpentValue(Long value) {
         Client client = getCurrentClient();
-        client.setTotalSpentValue(client.getTotalSpentValue() + value);
+
+        clientRepository.updateSpentValue(client.getId(), value);
     }
 
+    @Override
+    public boolean isRegistered(Long id) {
+        return clientRepository.existsById(id.intValue());
+    }
+
+    @Override
+    public boolean isRegistered(Client client) {
+        return isRegistered(client.getLogin());
+    }
+
+    @Override
+    public void changePassword(String oldPassword, String newPassword, Long id) {
+        clientRepository.updatePassword(oldPassword, newPassword, id);
+    }
+
+    @Override
+    public void refreshDiscount(Integer discount) {
+        clientRepository.updateDiscount(getCurrentClient().getId(), discount);
+    }
 }

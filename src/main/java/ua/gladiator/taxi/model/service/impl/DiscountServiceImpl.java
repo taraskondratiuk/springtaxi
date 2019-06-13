@@ -22,4 +22,9 @@ public class DiscountServiceImpl implements DiscountService {
                 discountRepository.getPersonalDiscount(client.getTotalSpentValue(), client.getSocialStatus().toString()),
                 discountRepository.getSpecialDiscount());
     }
+
+    @Override
+    public Integer getSpecialDiscount() {
+        return discountRepository.getSpecialDiscount();
+    }
 }

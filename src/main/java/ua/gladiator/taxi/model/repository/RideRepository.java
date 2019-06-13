@@ -8,4 +8,6 @@ import java.util.List;
 @Repository
 public interface RideRepository extends CrudRepository<Ride, Integer> {
     List<Ride> findAllByClientId(Long id);
+
+
 }

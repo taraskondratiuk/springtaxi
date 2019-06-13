@@ -1,30 +1,19 @@
 package ua.gladiator.taxi.controller;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
 /*import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;*/
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+        import org.springframework.web.bind.annotation.*;
 
-import ua.gladiator.taxi.model.entity.Car;
-import ua.gladiator.taxi.model.entity.Client;
-import ua.gladiator.taxi.model.entity.Ride;
-import ua.gladiator.taxi.model.entity.RideDetails;
-import ua.gladiator.taxi.model.entity.enums.CarType;
-import ua.gladiator.taxi.model.entity.enums.Role;
-import ua.gladiator.taxi.model.entity.enums.SocialStatus;
-import ua.gladiator.taxi.model.service.CarService;
-import ua.gladiator.taxi.model.service.ClientService;
-import ua.gladiator.taxi.model.service.TimeService;
-import ua.gladiator.taxi.model.service.UtilityService;
+        import ua.gladiator.taxi.model.entity.Client;
+        import ua.gladiator.taxi.model.entity.enums.SocialStatus;
+        import ua.gladiator.taxi.model.service.ClientService;
 
-import javax.validation.Valid;
-import java.util.*;
+        import java.util.*;
 
 @Controller
 @RequestMapping(path = "/")
@@ -72,10 +61,6 @@ public class AccountController {
 
 
 
-    @GetMapping(path = "/hello")
-    public String hello() {
-        return "hello";
-    }
 
 
     /* // This means to get the bean called userRepository
