@@ -1,23 +1,47 @@
 package ua.gladiator.taxi.model.entity;
 
-import lombok.Data;
+import lombok.*;
+import ua.gladiator.taxi.model.entity.enums.Street;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import java.io.Serializable;
+import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
-@Entity
 @Data
+@Entity
+@NoArgsConstructor
 @Table(name = "orders")
-public class Order implements Serializable {
+@AllArgsConstructor
+@Builder
+public class Order {
+/*    public Order() {
+        this.car_id =(long)1;
+        //this.clientId ="salhf";
+        //this.initialPlace = Street.Brovary;
+        this.time_id = 2L;
+        this.price = (long) 12;
+        this.waitTime = (long) 1488;
 
-    @Id
-    @NotEmpty
-    Long id;
+    }*/
 
+
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
-    @NotEmpty
-    Long ride_id;
+    private Long id;
+
+    @NotNull
+    private Long car_id;
+
+    @NotNull
+    private Long clientId;
+
+    @NotNull
+    private Long time_id;
+
+    @NotNull
+    private Long price;
+
+    @NotNull
+    private Long waitTime;
 }

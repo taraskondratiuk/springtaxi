@@ -11,7 +11,7 @@ import javax.persistence.Entity;
 @Data
 @Builder
 @ToString
-public class RideDetailsDTO {
+public class OrderDetailsDTO {
 
     private String carMake;
 

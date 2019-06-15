@@ -4,9 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 import ua.gladiator.taxi.model.entity.Client;
-import ua.gladiator.taxi.model.entity.Ride;
+import ua.gladiator.taxi.model.entity.Order;
 import ua.gladiator.taxi.model.entity.enums.CarType;
 import ua.gladiator.taxi.model.entity.enums.Street;
 import ua.gladiator.taxi.model.service.*;
@@ -23,17 +22,17 @@ public class UserController {
     private final CarService carService;
     private final DiscountService discountService;
     private final TimeService timeService;
-    private final RideService rideService;
+    private final OrderService orderService;
     private final UtilityService utilityService;
 
 
     @Autowired
-    public UserController(ClientService clientService, CarService carService, DiscountService discountService, TimeService timeService, RideService rideService, UtilityService utilityService) {
+    public UserController(ClientService clientService, CarService carService, DiscountService discountService, TimeService timeService, OrderService orderService, UtilityService utilityService) {
         this.clientService = clientService;
         this.carService = carService;
         this.discountService = discountService;
         this.timeService = timeService;
-        this.rideService = rideService;
+        this.orderService = orderService;
         this.utilityService = utilityService;
     }
 
@@ -45,7 +44,7 @@ public class UserController {
         model.addAttribute("cancel", cancel != null);
         model.addAttribute("client", client);
         model.addAttribute("specialdiscount", discountService.getSpecialDiscount());
-        model.addAttribute("numRides", rideService.getNumRides(client.getId()));
+        model.addAttribute("numRides", orderService.getNumRides(client.getId()));
         return "userHome";
     }
 
@@ -96,7 +95,7 @@ public class UserController {
                                @RequestParam Long price,
                                @RequestParam Long waitTime) {
 
-        rideService.addRide(Ride.builder()
+        orderService.addOrder(Order.builder()
                 .car_id(carId)
                 .clientId(clientService.getCurrentClient().getId())
                 .price(price)
@@ -108,16 +107,16 @@ public class UserController {
 
 
         model.put("success", "success");
-        List <Ride> rides = rideService.getRidesByClientId(clientService.getCurrentClient().getId());
-        model.put("details", utilityService.buildListDetails(rides));
+        List <Order> orders = orderService.getRidesByClientId(clientService.getCurrentClient().getId());
+        model.put("details", utilityService.buildListDetails(orders));
 
         return "orderHistory";
     }
 
     @GetMapping(path = "/history")
     public String getOrderHistory(Map<String, Object> model) {
-        List <Ride> rides = rideService.getRidesByClientId(clientService.getCurrentClient().getId());
-        model.put("details", utilityService.buildListDetails(rides));
+        List <Order> orders = orderService.getRidesByClientId(clientService.getCurrentClient().getId());
+        model.put("details", utilityService.buildListDetails(orders));
 
         return "orderHistory";
     }

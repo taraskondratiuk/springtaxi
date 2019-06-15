@@ -1,9 +1,7 @@
 <#import "parts/common.ftl" as c>
 
 <@c.page>
-<#if success??>
-    success
-</#if>
+
     <#if !cars??>
     <div><h3>${rca.getMessage("message.discount")} : ${discount}%</h3></div>
         <div  ng-app="selectboxApp" ng-controller="selectboxCtrl">
@@ -108,7 +106,7 @@
     <br>
 
     chosen car: ${car.type} ${car.make}
-    ride time: ${rideTime}
+    order time: ${rideTime}
     price: ${price}
         w8 time: ${waitTime}
 

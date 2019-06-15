@@ -18,6 +18,7 @@ public class Car {
     private Long idcars;
 
     @NotEmpty
+    @Column(name="make", columnDefinition="VARCHAR(45) default 'unknown'")
     private String make;
 
     @NotEmpty
@@ -31,8 +32,4 @@ public class Car {
     @Enumerated(EnumType.STRING)
     private CarType type;
 
-    @Override
-    public String toString() {
-        return "" + idcars;
-    }
 }

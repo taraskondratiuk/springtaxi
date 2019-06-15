@@ -1,11 +1,8 @@
 package ua.gladiator.taxi.model.service.impl;
 
 import org.springframework.stereotype.Service;
-import ua.gladiator.taxi.model.entity.Client;
-import ua.gladiator.taxi.model.entity.Ride;
-import ua.gladiator.taxi.model.entity.RideDetailsDTO;
-import ua.gladiator.taxi.model.entity.enums.CarType;
-import ua.gladiator.taxi.model.entity.enums.Street;
+import ua.gladiator.taxi.model.entity.Order;
+import ua.gladiator.taxi.model.entity.OrderDetailsDTO;
 import ua.gladiator.taxi.model.repository.CarRepository;
 import ua.gladiator.taxi.model.repository.DiscountRepository;
 import ua.gladiator.taxi.model.repository.TimeRepository;
@@ -19,20 +16,12 @@ public class UtilityServiceImpl implements UtilityService {
 
     private final TimeRepository timeRepository;
     private final CarRepository carRepository;
-    private final DiscountRepository discountRepository;
 
-    public UtilityServiceImpl(TimeRepository timeRepository, CarRepository carRepository, DiscountRepository discountRepository) {
+
+    public UtilityServiceImpl(TimeRepository timeRepository, CarRepository carRepository) {
         this.timeRepository = timeRepository;
         this.carRepository = carRepository;
-        this.discountRepository = discountRepository;
-    }
 
-    @Override
-    public List<RideDetailsDTO> getCarWithTimeList(CarType carType, Street destPlace) {
-        List cars = carRepository.getAllByTypeAndIs_aviliable(carType);
-        List<RideDetailsDTO> res = new ArrayList<>(cars.size());
-
-        return null;
     }
 
     @Override
@@ -41,16 +30,9 @@ public class UtilityServiceImpl implements UtilityService {
     }
 
     @Override
-    public void recountPersonalDiscount(Client client) {
-        client.setPersonalDiscount(
-                discountRepository.getPersonalDiscount(client.getTotalSpentValue(), client.getSocialStatus().toString())
-        );
-    }
-
-    @Override
-    public List<RideDetailsDTO> buildListDetails(List<Ride> rides) {
-        List <RideDetailsDTO> list = new ArrayList<>();
-        rides.forEach(v -> list.add(RideDetailsDTO
+    public List<OrderDetailsDTO> buildListDetails(List<Order> orders) {
+        List <OrderDetailsDTO> list = new ArrayList<>();
+        orders.forEach(v -> list.add(OrderDetailsDTO
                 .builder()
                 .price(v.getPrice())
                 .carMake(carRepository.getMakeById(v.getCar_id()))

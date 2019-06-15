@@ -26,7 +26,7 @@
                                 <br />
                             ${rca.getMessage("message.socialstatus")} : ${client.socialStatus}
                             <br />
-                            ${rca.getMessage("message.rides")} : ${numRides}</p>
+                            ${rca.getMessage("message.orders")} : ${numRides}</p>
 
                             <!-- Split button -->
                             <#--<div class="btn-group">
