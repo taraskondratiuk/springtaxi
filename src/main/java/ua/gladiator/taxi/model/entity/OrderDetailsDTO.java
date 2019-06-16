@@ -12,13 +12,15 @@ import javax.persistence.Entity;
 @Builder
 @ToString
 public class OrderDetailsDTO {
-
     private String carMake;
 
     private Long price;
+
     private Long time;
 
     private Street initPlace;
+
     private Street destPlace;
+
     private CarType carType;
 }

@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ua.gladiator.taxi.model.entity.Client;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -29,6 +30,13 @@ public interface ClientRepository extends CrudRepository<Client, Integer> {
     @Transactional
     @Query("UPDATE Client SET personalDiscount = :newDiscount WHERE id = :id")
     void updateDiscount(Long id, Integer newDiscount);
+
+    @Query("SELECT c.login FROM Client c WHERE c.id = :id")
+    String findLoginById(Long id);
+
+
+    @Query("SELECT  c FROM Client c WHERE c.role = 'ROLE_USER'")
+    List<Client> fintUsers();
 
     @Modifying
     @Transactional

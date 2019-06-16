@@ -88,6 +88,7 @@ public class UserController {
 
     @ModelAttribute
     public void addAttributes(Map<String, Object> model) {
+        model.put("role", "user");
         model.put("discount", discountService.getClientDiscount(clientService.getCurrentClient()));
         model.put("types", CarType.values());
         model.put("streets", Street.values());
@@ -113,28 +114,18 @@ public class UserController {
 
 
         model.put("success", "success");
-        List <Order> orders = orderService.getRidesByClientId(clientService.getCurrentClient().getId());
-        model.put("page", utilityService.buildPageDetails(orders, pageable));
-        model.put("url", "/history");
+
+        model.put("page", utilityService.buildPageOrders(pageable, clientService.getCurrentClient()));
+        model.put("url", "/user/history");
 
         return "orderHistory";
     }
 
     @GetMapping(path = "/history")
     public String getOrderHistory(Map<String, Object> model,
-                                  @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC, size = 8) Pageable page) {
-        List <Order> orders = orderService.getRidesByClientId(clientService.getCurrentClient().getId());
+                                  @PageableDefault(size = 8) Pageable page) {
 
-        System.out.println(page.getPageNumber());
-
-        Page<OrderDetailsDTO> orderPage = utilityService.buildPageDetails(orders, page);
-        System.out.println(orderPage.getTotalElements());
-        System.out.println(orderPage.getTotalPages());
-        System.out.println(orderPage.getPageable() + "    321");
-
-
-        model.put("page", utilityService.buildPageDetails(orders, page));
-
+        model.put("page", utilityService.buildPageOrders(page, clientService.getCurrentClient()));
         model.put("url", "/user/history");
 
         return "orderHistory";
@@ -150,6 +141,7 @@ public class UserController {
                            @RequestParam String oldpassword,
                            @RequestParam String newpassword) {
         Client client = clientService.getCurrentClient();
+
         if (!client.getPassword().equals(oldpassword)) {
             model.put("error", "error");
             return "changePassword";

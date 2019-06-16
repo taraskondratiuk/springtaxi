@@ -117,4 +117,5 @@ public class AccountController {
         model.put("success_reg", "success_reg");
         return "index";
     }
+
 }

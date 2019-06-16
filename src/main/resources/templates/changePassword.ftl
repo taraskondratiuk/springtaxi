@@ -7,7 +7,7 @@
         changed
     </#if>
     <div ng-app="ngpatternApp" ng-controller="ngpatternCtrl">
-        <form action="/user/changepw" method="post" name="changeForm" novalidate >
+        <form action="/${role}/changepw" method="post" name="changeForm" novalidate >
 
             <label>old password : <input type="password" name="oldpassword" ng-model="oldpw" ng-pattern="/^[A-Za-z0-9]{6,15}$/" required /></label>
 
@@ -36,5 +36,5 @@
 
         </form>
     </div>
-    <a href="/user/home">${rca.getMessage("message.home")}</a>
+    <a href="/${role}/home">${rca.getMessage("message.home")}</a>
 </@c.page>
