@@ -1,5 +1,7 @@
 package ua.gladiator.taxi.model.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ua.gladiator.taxi.model.entity.Client;
 import ua.gladiator.taxi.model.entity.Order;
@@ -12,7 +14,7 @@ import java.util.List;
 @Service
 public interface UtilityService {
 
-    public Long countPrice(Integer discount, Long time);
-    public List<OrderDetailsDTO> buildListDetails(List<Order> orders);
+    Long countPrice(Integer discount, Long time);
+    Page<OrderDetailsDTO> buildPageDetails(List<Order> orders, Pageable pageable);
 
 }

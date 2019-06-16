@@ -1,11 +1,16 @@
 package ua.gladiator.taxi.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ua.gladiator.taxi.model.entity.Client;
 import ua.gladiator.taxi.model.entity.Order;
+import ua.gladiator.taxi.model.entity.OrderDetailsDTO;
 import ua.gladiator.taxi.model.entity.enums.CarType;
 import ua.gladiator.taxi.model.entity.enums.Street;
 import ua.gladiator.taxi.model.service.*;
@@ -93,7 +98,8 @@ public class UserController {
                                @RequestParam Long carId,
                                @RequestParam Long timeId,
                                @RequestParam Long price,
-                               @RequestParam Long waitTime) {
+                               @RequestParam Long waitTime,
+                               @PageableDefault(sort = {"id"},direction = Sort.Direction.DESC) Pageable pageable) {
 
         orderService.addOrder(Order.builder()
                 .car_id(carId)
@@ -108,15 +114,28 @@ public class UserController {
 
         model.put("success", "success");
         List <Order> orders = orderService.getRidesByClientId(clientService.getCurrentClient().getId());
-        model.put("details", utilityService.buildListDetails(orders));
+        model.put("page", utilityService.buildPageDetails(orders, pageable));
+        model.put("url", "/history");
 
         return "orderHistory";
     }
 
     @GetMapping(path = "/history")
-    public String getOrderHistory(Map<String, Object> model) {
+    public String getOrderHistory(Map<String, Object> model,
+                                  @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC, size = 8) Pageable page) {
         List <Order> orders = orderService.getRidesByClientId(clientService.getCurrentClient().getId());
-        model.put("details", utilityService.buildListDetails(orders));
+
+        System.out.println(page.getPageNumber());
+
+        Page<OrderDetailsDTO> orderPage = utilityService.buildPageDetails(orders, page);
+        System.out.println(orderPage.getTotalElements());
+        System.out.println(orderPage.getTotalPages());
+        System.out.println(orderPage.getPageable() + "    321");
+
+
+        model.put("page", utilityService.buildPageDetails(orders, page));
+
+        model.put("url", "/user/history");
 
         return "orderHistory";
     }

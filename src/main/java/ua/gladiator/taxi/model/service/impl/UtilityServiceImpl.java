@@ -1,5 +1,9 @@
 package ua.gladiator.taxi.model.service.impl;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ua.gladiator.taxi.model.entity.Order;
 import ua.gladiator.taxi.model.entity.OrderDetailsDTO;
@@ -9,6 +13,7 @@ import ua.gladiator.taxi.model.repository.TimeRepository;
 import ua.gladiator.taxi.model.service.UtilityService;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -30,8 +35,8 @@ public class UtilityServiceImpl implements UtilityService {
     }
 
     @Override
-    public List<OrderDetailsDTO> buildListDetails(List<Order> orders) {
-        List <OrderDetailsDTO> list = new ArrayList<>();
+    public Page<OrderDetailsDTO> buildPageDetails(List<Order> orders, Pageable pageable) {
+        final List <OrderDetailsDTO> list = new ArrayList<>();
         orders.forEach(v -> list.add(OrderDetailsDTO
                 .builder()
                 .price(v.getPrice())
@@ -41,8 +46,24 @@ public class UtilityServiceImpl implements UtilityService {
                 .initPlace(timeRepository.getInitById(v.getTime_id()))
                 .time(timeRepository.getLongTimeById(v.getTime_id()))
         .build()));
-        return list;
+        List<OrderDetailsDTO> resList = buildSubList(list, pageable);
 
+        return new PageImpl<>(resList, pageable, list.size());
+
+
+    }
+
+    private List<OrderDetailsDTO> buildSubList(List<OrderDetailsDTO> list, Pageable pageable) {
+        int pageNumber = pageable.getPageNumber();
+        int pageSize = pageable.getPageSize();
+        int start = pageNumber * pageSize;
+        if(start >= list.size()) {
+            return Collections.EMPTY_LIST;
+        }
+        int end = pageNumber * pageSize + pageSize > list.size() ?
+                list.size() :
+                pageNumber * pageSize + pageSize;
+        return  list.subList(start, end);
     }
 
 }
