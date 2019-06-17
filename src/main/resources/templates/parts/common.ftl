@@ -20,8 +20,6 @@
             });
 
         </script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
-        </script>
         <script type="application/javascript">
             function switchUA() {
                 window.location.replace(window.location.origin + window.location.pathname + '?lang=UA');
@@ -31,50 +29,8 @@
                 window.location.replace(window.location.origin + window.location.pathname + '?lang=US');
             }
         </script>
-        <script>
-            var app = angular.module('selectboxApp', []);
-            app.controller('selectboxCtrl', function ($scope) {
 
-                $scope.checkselection = function () {
-                    setTimeout(function () {
 
-                    $scope.msg = '';
-                    if ($scope.placeStart == "" || $scope.placeStart == undefined ||
-                        $scope.placeEnd == "" || $scope.placeEnd == undefined ||
-                    $scope.typeCar == "" || $scope.typeCar == undefined)
-
-                        $scope.msg = 'Please Select All Dropdown Values';
-                    if ($scope.placeStart == $scope.placeEnd)
-                        $scope.msg = 'Please choose different init and dest places';
-                    if($scope.msg == '')
-
-                        angular.element('#mysubmit').trigger('click');
-                    }, 0);
-                }
-            });
-        </script>
-        <script>
-            var compareTo = function() {
-                return {
-                    require: "ngModel",
-                    scope: {
-                        otherModelValue: "=compareTo"
-                    },
-                    link: function(scope, element, attributes, ngModel) {
-
-                        ngModel.$validators.compareTo = function(modelValue) {
-                            return modelValue != scope.otherModelValue;
-                        };
-
-                        scope.$watch("otherModelValue", function() {
-                            ngModel.$validate();
-                        });
-                    }
-                };
-            };
-
-            module.directive("compareTo", compareTo);
-        </script>
     </head>
     <body>
     <#include "header.ftl"/>

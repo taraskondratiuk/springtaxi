@@ -8,15 +8,15 @@ import ua.gladiator.taxi.model.entity.enums.SocialStatus;
 @Builder
 @Data
 public class ClientDetailsDTO {
-    String login;
+    private String login;
 
-    SocialStatus socialStatus;
+    private SocialStatus socialStatus;
 
-    Long numRides;
+    private Long numRides;
 
-    Long totalSpentValue;
+    private Long totalSpentValue;
 
-    Long totalTime;
+    private Long totalTime;
 
-    CarType mostCommonCarType;
+    private CarType mostCommonCarType;
 }

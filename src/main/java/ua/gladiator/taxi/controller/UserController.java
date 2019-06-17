@@ -70,6 +70,10 @@ public class UserController {
                                    @RequestParam Street initPlace,
                                    @RequestParam Street destPlace,
                                    @RequestParam (required = false) Long carId) {
+        if(initPlace == destPlace) {
+            model.put("error", "error");
+            return "order";
+        }
         model.put("cars", carService.getAvailableType(carType));
         model.put("initPlace", initPlace);
         model.put("destPlace", destPlace);

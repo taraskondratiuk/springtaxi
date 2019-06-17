@@ -35,11 +35,12 @@
         error
     </#if>
 
+
     <div ng-app="ngpatternApp" ng-controller="ngpatternCtrl">
 
 
 
-        <form action="/login" method="post" name="loginForm" novalidate >
+        <form action="/login" method="post" id="loginForm" name="loginForm" ng-submit="loginForm.$valid" novalidate >
 
             <label> User Name : <input type="text" name="username" ng-model="txtlogin" ng-pattern="/^[A-Za-z0-9]{4,15}$/" required /></label>
 
@@ -56,7 +57,7 @@
 
             <br /><br />
             <input type="hidden" name="_csrf" value="${_csrf.token}" />
-            <button ng-disabled="loginForm.username.$invalid || loginForm.password.$invalid" type="submit">Submit Form</button><br /><br />
+            <button ng-click="submit($event)" ng-disabled="loginForm.username.$invalid || loginForm.password.$invalid" >Submit Form</button><br /><br />
 
 
 

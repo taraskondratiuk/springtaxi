@@ -99,9 +99,7 @@ public class UtilityServiceImpl implements UtilityService {
         if(start >= list.size()) {
             return Collections.EMPTY_LIST;
         }
-        int end = pageNumber * pageSize + pageSize > list.size() ?
-                list.size() :
-                pageNumber * pageSize + pageSize;
+        int end = Math.min(pageNumber * pageSize + pageSize, list.size());
         return  list.subList(start, end);
     }
 

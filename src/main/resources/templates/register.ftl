@@ -7,7 +7,7 @@
         ${message}
     </#if>
 <div ng-app="ngpatternApp" ng-controller="ngpatternCtrl">
-    <form action="/register" method="post" name="regForm" novalidate >
+    <form action="/register" method="post" name="regForm" ng-submit="regForm.$valid  " novalidate >
 
         <label> User Name : <input type="text" name="login" ng-model="txtlogin" ng-pattern="/^[A-Za-z0-9]{4,15}$/" required /></label>
 
@@ -32,7 +32,7 @@
                 </select></label></div>
         <br/>
         <input type="hidden" name="_csrf" value="${_csrf.token}" />
-        <button ng-disabled="regForm.login.$invalid || regForm.password.$invalid" type="submit">Submit Form</button><br /><br />
+        <button ng-disabled="regForm.login.$invalid || regForm.password.$invalid" type="submit" >Submit Form</button><br /><br />
 
 
 
