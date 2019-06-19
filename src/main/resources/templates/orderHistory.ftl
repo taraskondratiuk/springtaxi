@@ -35,10 +35,10 @@
         <#list page.content as d>
             <tr>
                 <td>
-                    ${d.initPlace}
+                    ${d.destPlace}
                 </td>
                 <td>
-                    ${d.destPlace}
+                    ${d.initPlace}
                 </td>
                 <td>
                     ${d.carType}

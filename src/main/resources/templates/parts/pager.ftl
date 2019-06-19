@@ -4,7 +4,7 @@
    <#-- <div class="mt-3">-->
         <ul class="pagination">
             <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1">Страницы</a>
+                <a class="page-link" href="#" tabindex="-1">${rca.getMessage("message.page")}</a>
             </li>
             <#list body as p>
                 <#if (p - 1) == page.getNumber()>

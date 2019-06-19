@@ -1,7 +1,6 @@
 package ua.gladiator.taxi.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -10,13 +9,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ua.gladiator.taxi.model.entity.Client;
 import ua.gladiator.taxi.model.entity.Order;
-import ua.gladiator.taxi.model.entity.OrderDetailsDTO;
 import ua.gladiator.taxi.model.entity.enums.CarType;
 import ua.gladiator.taxi.model.entity.enums.Street;
 import ua.gladiator.taxi.model.service.*;
 
 import java.util.Map;
-import java.util.List;
 
 @Controller
 

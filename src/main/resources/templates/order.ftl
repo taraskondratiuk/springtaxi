@@ -1,7 +1,7 @@
 <#import "parts/common.ftl" as c>
-
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 <@c.page>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <#if !cars??>
     <div><h3>${rca.getMessage("message.discount")} : ${discount}%</h3></div>
         <div  ng-app="selectboxApp" ng-controller="selectboxCtrl">
@@ -18,7 +18,7 @@
                         </option>
                     </#list>
                 </select></label></div>
-        <span style="color:Red" ng-show="selectForm.initPlace.$touched&&selectForm.initPlace.$error.required"> Required! </span>
+        <#--<span style="color:Red" ng-show="selectForm.initPlace.$touched&&selectForm.initPlace.$error.required"> Required! </span>-->
         <div>
             <div>
                 <label> ${rca.getMessage("message.dest")} <select name="destPlace"  ng-model="placeEnd" required >
@@ -29,7 +29,7 @@
                             </option>
                         </#list>
                     </select></label></div>
-            <span style="color:Red" ng-show="selectForm.destPlace.$touched&&selectForm.destPlace.$error.required"> Required! </span>
+           <#-- <span style="color:Red" ng-show="selectForm.destPlace.$touched&&selectForm.destPlace.$error.required"> Required! </span>-->
             <div>
                 <label> ${rca.getMessage("message.type")} <select name="carType"  ng-model="typeCar"  required>
                         <option value="">type</option>
@@ -39,12 +39,13 @@
                             </option>
                         </#list>
                     </select></label></div>
-            <span style="color:Red" ng-show="selectForm.carType.$touched&&selectForm.carType.$error.required"> Required! </span>
+
+           <#-- <span style="color:Red" ng-show="selectForm.carType.$touched&&selectForm.carType.$error.required"> Required! </span>-->
 
 
             <input type="hidden" name="_csrf" value="${_csrf.token}" />
             <div>
-                <input type="submit" value="${rca.getMessage("message.confirm")}" ng-disabled="selectForm.initPlace.$invalid || selectForm.destPlace.$invalid || selectForm.carType.$invalid || (  selectForm.initPlace.valueOf() == selectForm.destPlace.valueOf())" id="mysubmit"/>
+                <input type="submit" value="${rca.getMessage("message.confirm")}" ng-disabled="selectForm.initPlace.$invalid || selectForm.destPlace.$invalid || selectForm.carType.$invalid" id="mysubmit"/>
 
 
             </div>
@@ -54,19 +55,6 @@
 
 
         </div>
-<#--
-        <body  ng-app="selectboxApp" ng-controller="selectboxCtrl"
-        <div>
-            <h3>AngularJS Select Box / Dropdown List Validation Example</h3>
-            <select name="users" ng-model="userSelect">
-                <option value="">--Select User--</option>
-                <option ng-repeat="option in arrlist" value="{{option.userid}}">{{option.name}}</option>
-            </select>
-        </div><br /><br />
-        <input type="button" value="Submit" ng-click="checkselection()" /><br /><br />
-        <span style="color:red">{{msg}}</span><br />
-        </body>
--->
 
 
     <#elseif cars?? && !car??>
@@ -141,3 +129,4 @@
 
 
 </@c.page>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>

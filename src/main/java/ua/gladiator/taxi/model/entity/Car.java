@@ -32,4 +32,5 @@ public class Car {
     @Enumerated(EnumType.STRING)
     private CarType type;
 
+
 }

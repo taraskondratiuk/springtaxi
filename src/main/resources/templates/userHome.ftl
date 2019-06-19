@@ -3,6 +3,9 @@
 <@c.page>
 
     <div class="container">
+        <div class="paddingtop col-lg-12">
+
+        </div>
         <div class="row">
             <div class="col-lg-offset-2 col-lg-8 ">
                 <div class="well well-sm">
@@ -55,8 +58,9 @@
     <#elseif cancel>
         cancel
     </#if>
-
-    <a href="/user/order">${rca.getMessage("message.order")}</a>
-    <a href="/user/history">${rca.getMessage("message.history")}</a>
-    <a href="/user/changepw">${rca.getMessage("message.changepw")}</a>
+<div class="col-lg-offset-2 col-lg-8 ">
+    <a href="/user/order"><button type="button" class="btn-lg btn-info">${rca.getMessage("message.order")}</button></a>
+    <a href="/user/history"><button type="button" class="btn-lg btn-info">${rca.getMessage("message.history")}</button></a>
+    <a href="/user/changepw"><button type="button" class="btn-lg btn-info">${rca.getMessage("message.changepw")}</button></a>
+</div>
 </@c.page>

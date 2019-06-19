@@ -41,8 +41,9 @@
         </div>
     </div>
 
-
-    <a href="/admin/cars">${rca.getMessage("message.cars")}</a>
-    <a href="/admin/clients">${rca.getMessage("message.clients")}</a>
-    <a href="/admin/changepw">${rca.getMessage("message.changepw")}</a>
+<div class="col-lg-offset-2 col-lg-8">
+    <a href="/admin/cars"><button type="button" class="btn-lg btn-info">${rca.getMessage("message.cars")}</button></a>
+    <a href="/admin/clients"><button type="button" class="btn-lg btn-info">${rca.getMessage("message.clients")}</button></a>
+    <a href="/admin/changepw"><button type="button" class="btn-lg btn-info">${rca.getMessage("message.changepw")}</button></a>
+    </div>
 </@c.page>

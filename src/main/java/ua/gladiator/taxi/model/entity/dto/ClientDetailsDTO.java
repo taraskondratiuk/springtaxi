@@ -1,4 +1,4 @@
-package ua.gladiator.taxi.model.entity;
+package ua.gladiator.taxi.model.entity.dto;
 
 import lombok.Builder;
 import lombok.Data;

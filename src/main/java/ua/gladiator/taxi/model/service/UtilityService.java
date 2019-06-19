@@ -4,10 +4,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ua.gladiator.taxi.model.entity.*;
-import ua.gladiator.taxi.model.entity.enums.CarType;
-import ua.gladiator.taxi.model.entity.enums.Street;
-
-import java.util.List;
+import ua.gladiator.taxi.model.entity.dto.CarDetailsDTO;
+import ua.gladiator.taxi.model.entity.dto.ClientDetailsDTO;
+import ua.gladiator.taxi.model.entity.dto.OrderDetailsDTO;
 
 @Service
 public interface UtilityService {
